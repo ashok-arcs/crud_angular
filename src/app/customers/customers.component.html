@@ -1,0 +1,115 @@
+<div class="wrapper">
+    <!-- Sidebar -->
+    <app-sidebar></app-sidebar>
+	<div class="container-xl">
+		<div class="table-responsive">
+			<div class="table-wrapper">
+				<div class="table-title">
+					<div class="row">
+						<div class="col-sm-6">
+							<h2>Customers <b>Lists</b></h2>
+						</div>
+						<div class="col-sm-6">
+							<a routerLink="/add-customer" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Customer</span></a>	
+						</div>
+					</div>
+				</div>
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Phone</th>
+							<th>Profile</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let customer of customers | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage } ; let i = index">
+							<td>{{customer.name}}</td>
+							<td>{{customer.email}}</td>
+							<td>{{customer.phone}}</td>
+							<td><img src="{{baseUrl}}{{ customer.profile_image ? customer.path + customer.profile_image : 'images/default.jpg' }}" height="100px" width="100px"></td>
+							<td>
+								<a href="#editPostModal" class="edit" (click)="editCustomer(customer.id)"  data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+								<a href="javascript:;" class="delete" (click)="deleteCustomer(customer.id)"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+							</td>
+						</tr>
+					</tbody>
+					<tbody *ngIf="customers?.length == 0">
+						<tr><td colspan="5" class="empty-post">Customer Not Found:</td></tr>
+					</tbody>
+				</table>
+				<div class="clearfix" *ngIf="customers?.length > 0">
+					<ul class="pagination">
+						<li><pagination-controls (pageChange)="currentPage = $event"></pagination-controls></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>   
+</div>
+<!-- Edit Modal HTML -->
+<div id="editPostModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form [formGroup]="updateCustomerForm" (ngSubmit)="updateCustomer()">
+				<div class="modal-header">						
+					<h4 class="modal-title">Update Customer</h4>
+					<button type="button" #updatecustomerbutton class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">					
+					<div class="form-group">
+						<label>Name<span class="red">*</span></label>
+						<input type="text" class="form-control" formControlName="name">
+						<div *ngIf="updateCustomerForm.get('name')?.invalid && (updateCustomerForm.get('name')?.dirty || updateCustomerForm.get('name')?.touched)">
+							<div *ngIf="updateCustomerForm.get('name')?.errors?.['required']"><p class="red">The name field is required.</p></div>
+							</div>
+						<p class="red">{{nameError}}</p>
+					</div>
+					
+					<div class="form-group">
+						<label>Email<span class="red">*</span></label>
+						<input type="text" class="form-control" formControlName="email">
+						<div *ngIf="updateCustomerForm.get('email')?.invalid && (updateCustomerForm.get('email')?.dirty || updateCustomerForm.get('email')?.touched)">
+							<div *ngIf="updateCustomerForm.get('email')?.errors?.['required']"><p class="red">The email field is required.</p></div>
+							<div *ngIf="!updateCustomerForm.get('email')?.errors?.['required'] && updateCustomerForm.get('email')?.errors?.['email']"><p class="red">The email must be a valid email address.</p></div>
+							</div>
+						<p class="red">{{emailError}}</p>
+					</div>
+
+					<div class="form-group">
+						<label>Phone<span class="red">*</span></label>
+						<input type="number" class="form-control" formControlName="phone">
+						<div *ngIf="updateCustomerForm.get('phone')?.invalid && (updateCustomerForm.get('phone')?.dirty || updateCustomerForm.get('phone')?.touched)">
+							<div *ngIf="updateCustomerForm.get('phone')?.errors?.['required']"><p class="red">The phone field is required.</p></div>
+							</div>
+						<p class="red">{{phoneError}}</p>
+					</div>
+
+					<!-- <input type="file" (change)="onFileSelected($event)" /> -->
+
+
+					<div class="form-group">
+						<label>Address<span class="red">*</span></label>
+						<textarea class="form-control" formControlName="address"></textarea>
+						<div *ngIf="updateCustomerForm.get('address')?.invalid && (updateCustomerForm.get('address')?.dirty || updateCustomerForm.get('address')?.touched)">
+							<div *ngIf="updateCustomerForm.get('address')?.errors?.['required']"><p class="red">The address field is required.</p></div>
+							</div>
+						<p class="red">{{addressError}}</p>
+					</div>
+
+					<div class="form-group">
+						<label>Profile Image</label>
+						<input type="file" id="updatefileID" class="form-control" formControlName="image">
+						<img src="{{baseUrl}}{{ test ? test1 + test : 'images/default.jpg' }}" height="100px" width="100px">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-success" value="Update">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

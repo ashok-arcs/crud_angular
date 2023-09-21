@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!---Coding By CoderGirl | www.codinglabweb.com--->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Login & Registration Form</title>
+  <!---Custom CSS File--->
+  <link rel="stylesheet" href="http://localhost:4200/assets/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="registration form">
+      <header>Signup</header>
+      <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+        <input type="text" placeholder="Enter your name" formControlName="name">
+        <div *ngIf="registerForm.get('name')?.invalid && (registerForm.get('name')?.dirty || registerForm.get('name')?.touched)">
+          <div *ngIf="registerForm.get('name')?.errors?.['required']"><p class="red">The name field is required.</p></div>
+        </div>
+        <p class="red">{{nameError}}</p>
+        <input type="text" placeholder="Enter your email" formControlName="email">
+
+        <div *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)">
+          <div *ngIf="registerForm.get('email')?.errors?.['required']"><p class="red">The email field is required.</p></div>      
+          <div *ngIf="!registerForm.get('email')?.errors?.['required'] && registerForm.get('email')?.errors?.['invalidEmail']"><p class="red">The email must be a valid email address.</p></div>
+        </div>
+        <p class="red">{{emailError}}</p>
+        <input type="password" placeholder="Enter a password" formControlName="password">
+        <div *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)">
+          <div *ngIf="registerForm.get('password')?.errors?.['required']"><p class="red">The password field is required.</p></div>
+          <div *ngIf="!registerForm.get('password')?.errors?.['required'] && registerForm.get('password')?.errors?.['minlength']"><p class="red">Password must be at least 8 characters long.</p></div>
+        </div>
+        <p class="red">{{passwordError}}</p>
+        <input type="number" placeholder="Enter your phone number" formControlName="phone">
+        <input type="submit" class="button" value="Signup">
+      </form>
+      <div class="signup">
+        <span class="signup">Already have an account?
+         <label for="check"> <a routerLink="/login">Login</a></label>
+        </span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

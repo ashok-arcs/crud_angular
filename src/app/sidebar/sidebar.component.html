@@ -1,0 +1,49 @@
+<!-- Sidebar -->
+<nav id="sidebar">
+    <div class="sidebar-header">
+        <h3>Bootstrap Sidebar</h3>
+    </div>
+
+    <ul class="list-unstyled components">
+        <!-- <p>Dummy Heading</p> -->
+        <li routerLinkActive="active">
+            <a routerLink="/post-listing">Posts</a>
+        </li>   
+        <li routerLinkActive="active">
+            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Customers</a>
+            <ul class="collapse list-unstyled" id="homeSubmenu">
+                <li>
+                    <a routerLink="/customers">Customers List</a>
+                </li>
+                <li>
+                    <a routerLink="/add-customer">Add Customer</a>
+                </li>
+            </ul>
+        </li>
+        <li routerLinkActive="active">
+            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Products</a>
+            <ul class="collapse list-unstyled" id="pageSubmenu">
+                <li>
+                    <a routerLink="/products">Products List</a>
+                </li>
+                <li>
+                    <a routerLink="/add-product">Add Product</a>
+                </li>
+            </ul>
+        </li>
+        <li routerLinkActive="active">
+            <a href="#orderSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Orders</a>
+            <ul class="collapse list-unstyled" id="orderSubmenu">
+                <li>
+                    <a routerLink="/orders">Orders List</a>
+                </li>
+                <li>
+                    <a routerLink="/add-order">Create Order</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a  href="javascript:;" (click)="logoutUser()">Logout</a>
+        </li>  
+    </ul>
+</nav>

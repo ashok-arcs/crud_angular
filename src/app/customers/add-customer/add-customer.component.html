@@ -1,0 +1,70 @@
+<div class="wrapper">
+    <!-- Sidebar -->
+    <app-sidebar></app-sidebar>
+    <!-- Page Content -->
+    <div class="container  mt-4">
+        <div class="row">
+            <div class="col-3">
+            </div>
+            <div class="col-6">
+                <form [formGroup]="addCustomerForm" (ngSubmit)="addCustomer()">
+                    <div class="modal-header">						
+                        <h4 class="modal-title ">Add Customer</h4>
+                    </div>
+                    <div class="modal-body">					
+                        <div class="form-group">
+                            <label>Name<span class="red">*</span></label>
+                            <input type="text" class="form-control" formControlName="name">
+                            <div *ngIf="addCustomerForm.get('name')?.invalid && (addCustomerForm.get('name')?.dirty || addCustomerForm.get('name')?.touched)">
+                                <div *ngIf="addCustomerForm.get('name')?.errors?.['required']"><p class="red">The name field is required.</p></div>
+                                </div>
+                            <p class="red">{{nameError}}</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Email<span class="red">*</span></label>
+                            <input type="text" class="form-control" formControlName="email">
+                            <div *ngIf="addCustomerForm.get('email')?.invalid && (addCustomerForm.get('email')?.dirty || addCustomerForm.get('email')?.touched)">
+                                <div *ngIf="addCustomerForm.get('email')?.errors?.['required']"><p class="red">The email field is required.</p></div>
+                                <div *ngIf="!addCustomerForm.get('email')?.errors?.['required'] && addCustomerForm.get('email')?.errors?.['email']"><p class="red">The email must be a valid email address.</p></div>
+                                </div>
+                            <p class="red">{{emailError}}</p>
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Phone<span class="red">*</span></label>
+                            <input type="number" class="form-control" formControlName="phone">
+                            <div *ngIf="addCustomerForm.get('phone')?.invalid && (addCustomerForm.get('phone')?.dirty || addCustomerForm.get('phone')?.touched)">
+                                <div *ngIf="addCustomerForm.get('phone')?.errors?.['required']"><p class="red">The phone field is required.</p></div>
+                                </div>
+                            <p class="red">{{phoneError}}</p>
+                        </div>
+    
+                        <!-- <input type="file" (change)="onFileSelected($event)" /> -->
+                        <div class="form-group">
+                            <label>Address<span class="red">*</span></label>
+                            <textarea class="form-control" formControlName="address"></textarea>
+                            <div *ngIf="addCustomerForm.get('address')?.invalid && (addCustomerForm.get('address')?.dirty || addCustomerForm.get('address')?.touched)">
+                                <div *ngIf="addCustomerForm.get('address')?.errors?.['required']"><p class="red">The address field is required.</p></div>
+                                </div>
+                            <p class="red">{{addressError}}</p>
+                        </div>
+                        
+                        
+                        <div class="form-group">
+                            <label>Profile Image</label>
+                            <input type="file" id="fileID" class="form-control" formControlName="image">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-success" value="Add Customer">
+                    </div>
+                </form>
+            </div>
+            <div class="col-3">
+                
+            </div>
+        </div>
+        
+    </div>
+</div>

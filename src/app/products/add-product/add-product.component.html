@@ -1,0 +1,89 @@
+<div class="wrapper">
+    <!-- Sidebar -->
+    <app-sidebar></app-sidebar>
+    <!-- Page Content -->
+    <div class="container  mt-4">
+        <div class="row">
+            <div class="col-3">
+            </div>
+            <div class="col-6">
+                <form [formGroup]="addProductForm" (ngSubmit)="addProduct()">
+                    <div class="modal-header">						
+                        <h4 class="modal-title">Add Product</h4>
+                    </div>
+                    <div class="modal-body">					
+                        <div class="form-group">
+                            <label>Name<span class="red">*</span></label>
+                            <input type="text" class="form-control" formControlName="name">
+                            <div *ngIf="addProductForm.get('name')?.invalid && (addProductForm.get('name')?.dirty || addProductForm.get('name')?.touched)">
+                                <div *ngIf="addProductForm.get('name')?.errors?.['required']"><p class="red">The name field is required.</p></div>
+                              </div>
+                            <p class="red">{{nameError}}</p>
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Price<span class="red">*</span></label>
+                            <input type="number" class="form-control" formControlName="price">
+                            <div *ngIf="addProductForm.get('price')?.invalid && (addProductForm.get('price')?.dirty || addProductForm.get('price')?.touched)">
+                                <div *ngIf="addProductForm.get('price')?.errors?.['required']"><p class="red">The price field is required.</p></div>
+                              </div>
+                            <p class="red">{{priceError}}</p>
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Description<span class="red">*</span></label>
+                            <textarea class="form-control" formControlName="description"></textarea>
+                            <div *ngIf="addProductForm.get('description')?.invalid && (addProductForm.get('description')?.dirty || addProductForm.get('description')?.touched)">
+                                <div *ngIf="addProductForm.get('description')?.errors?.['required']"><p class="red">The description field is required.</p></div>
+                              </div>
+                            <p class="red">{{descriptionError}}</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Product Image</label>
+                            <input type="file" id="fileID" class="form-control" formControlName="image">
+                        </div>
+
+            <!-- <p>The default dropzone.</p>
+
+            <ngx-dropzone (change)="onSelect($event)">
+            <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
+            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+            </ngx-dropzone-preview>
+            </ngx-dropzone>
+
+            <p>The disabled but expanding dropzone.</p>
+
+            <ngx-dropzone (change)="onSelect($event)" [disabled]="true" [expandable]="true">
+            <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
+            <ngx-dropzone-preview *ngFor="let f of files">
+            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+            </ngx-dropzone-preview>
+            </ngx-dropzone> -->
+
+                    <p>A custom dropzone.</p>
+
+                        <div class="custom-dropzone" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)">
+                            <ngx-dropzone-label>
+                                <div>
+                                    <h2>My custom dropzone</h2>
+                                </div>
+                            </ngx-dropzone-label>
+                            <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                            </ngx-dropzone-image-preview>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-success" value="Add Product">
+                    </div>
+                </form>
+            </div>
+            <div class="col-3">
+                
+            </div>
+        </div>
+        
+    </div>
+</div>

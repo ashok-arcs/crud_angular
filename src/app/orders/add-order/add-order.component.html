@@ -1,0 +1,72 @@
+<div class="wrapper">
+    <!-- Sidebar -->
+    <app-sidebar></app-sidebar>
+    <!-- Page Content -->
+    <div class="container  mt-4">
+        <div class="row">
+            <div class="col-3">
+            </div>
+            <div class="col-6">
+                <form [formGroup]="addOrderForm" (ngSubmit)="addOrder()">
+                    <div class="modal-header">						
+                        <h4 class="modal-title">Create Order</h4>
+                    </div>
+                    <div class="modal-body">	
+                        <div class="form-group">
+                            <label>Customers<span class="red">*</span></label>
+                            
+                            <select formControlName="selectedCustomer" id="" class="form-control">
+                                <option selected value="">Select Customer</option>
+                                <option *ngFor="let option of customers" [value]="option.id">
+                                {{ option.name }}
+                                </option>
+                            </select>
+                            <div *ngIf="addOrderForm.get('selectedCustomer')?.invalid && (addOrderForm.get('selectedCustomer')?.dirty || addOrderForm.get('selectedCustomer')?.touched)">
+                                <div *ngIf="addOrderForm.get('selectedCustomer')?.errors?.['required']"><p class="red">The customer field is required.</p></div>
+                              </div>
+                            <p class="red">{{customerError}}</p>
+                        </div>	
+    
+                        <div class="form-group">
+                            <label>Products<span class="red">*</span></label>
+                            <select formControlName="selectedProduct" class="form-control" (change)="onSelectChange($event)" >
+                                <option selected value="">Select Product</option>
+                                <option *ngFor="let option of products" [value]="option.id">
+                                {{ option.name }}
+                                </option>
+                            </select>
+                            <div *ngIf="addOrderForm.get('selectedProduct')?.invalid && (addOrderForm.get('selectedProduct')?.dirty || addOrderForm.get('selectedProduct')?.touched)">
+                                <div *ngIf="addOrderForm.get('selectedProduct')?.errors?.['required']"><p class="red">The product field is required.</p></div>
+                              </div>
+                            <p class="red">{{productError}}</p>
+                        </div>
+                        <div class="form-group" *ngIf="isHide">
+                            <label>Price<span class="red">*</span></label>
+                            <input type="number" class="form-control" formControlName="price" id="price" [readonly]="isReadOnly">
+                            <div *ngIf="addOrderForm.get('price')?.invalid && (addOrderForm.get('price')?.dirty || addOrderForm.get('price')?.touched)">
+                                <div *ngIf="addOrderForm.get('price')?.errors?.['required']"><p class="red">The price field is required.</p></div>
+                              </div>
+                            <p class="red">{{priceError}}</p>
+                        </div>
+    
+                        <div class="form-group" *ngIf="isHide">
+                            <label>Description<span class="red">*</span></label>
+                            <textarea class="form-control" formControlName="description" [readonly]="isReadOnly"></textarea>
+                            <div *ngIf="addOrderForm.get('description')?.invalid && (addOrderForm.get('description')?.dirty || addOrderForm.get('description')?.touched)">
+                                <div *ngIf="addOrderForm.get('description')?.errors?.['required']"><p class="red">The description field is required.</p></div>
+                              </div>
+                            <p class="red">{{descriptionError}}</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-success" value="Create Order">
+                    </div>
+                </form>
+            </div>
+            <div class="col-3">
+                
+            </div>
+        </div>
+        
+    </div>
+</div>
